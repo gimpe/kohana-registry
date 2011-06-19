@@ -1,7 +1,7 @@
 kohana-registry
 ===============
 
-Kohana 3.1 module to do Dependency Injection .
+Kohana 3.1 module a registry for Dependency Injection.
 
 
 License:

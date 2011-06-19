@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Kohana Registry, provides a Dependency Injection container
+ * Kohana Registry a registry for Dependency Injection.
  *
  * http://martinfowler.com/articles/injection.html
  * http://www.grobmeier.de/dependency-injection-a-design-pattern-16042009.html
@@ -176,5 +176,19 @@ abstract class Kohana_Registry
 
             return $instance;
         }
+    }
+
+    /**
+     * Set an object instance (or singleton) in the registry. Useful but it should be used only if it is not possible
+     * to do it using the conf file. Note an empty entry with lazy true TRUE is required fot the $id.
+     *
+     * @param string $id       Id of the object in the registry
+     * @param object $instance Instance of an object that is "hard" register in the conf file
+     *
+     * @return void
+     */
+    public function set($id, $instance)
+    {
+        $this->_instances[$id] = $instance;
     }
 } // End Registry
