@@ -3,8 +3,7 @@
 /**
  * Configuration file for kohana-registry module
  *
- * 
- * Config format:
+ * Format:
  *
  * return array(
  *     // id used to retrive the object
@@ -27,10 +26,8 @@
  *         'use_singleton' => TRUE,
  *         ),
  *     );
- * 
- * Other exemples available at https://github.com/gimpe/kohana-registry/wiki
  *
- * 
+ *
  * LICENSE: THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS
  * CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED
  * BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS
@@ -49,4 +46,4 @@
  * @link      http://github.com/gimpe/kohana-registry
  */
 return array(
-    );
+);

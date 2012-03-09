@@ -1,7 +1,7 @@
 kohana-registry
 ===============
 
-Kohana 3.1 module for Dependency Injection.
+Kohana 3.2 module fpr simple Dependency Injection.
 
 
 License:

@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Kohana Registry a registry for Dependency Injection.
+ * Kohana Registry, simple Dependency Injection
  *
  * http://martinfowler.com/articles/injection.html
  * http://www.grobmeier.de/dependency-injection-a-design-pattern-16042009.html
@@ -29,12 +29,13 @@
  */
 abstract class Kohana_Registry
 {
-    const USE_LAZYLOAD = 'use_lazyload';
+    const USE_LAZYLOAD  = 'use_lazyload';
     const USE_SINGLETON = 'use_singleton';
 
     public static $instance;
     private $_config;
     private $_instances = array();
+    private $_config_registry;
 
     /**
      * This method is called in init.php and will force
@@ -57,7 +58,7 @@ abstract class Kohana_Registry
         if ( ! isset(Registry::$instance))
         {
             // Load the configuration for this type
-            $config = Kohana::config('registry');
+            $config = Kohana::$config->load('registry');
 
             // Create a new Registry instance
             Registry::$instance = new Registry($config);
@@ -86,7 +87,7 @@ abstract class Kohana_Registry
             // instanciate now if lazyload = FALSE
             if ($item_config[self::USE_LAZYLOAD] === FALSE)
             {
-                $this->get($id);
+                $this->get_object($id);
             }
         }
     }
@@ -107,19 +108,70 @@ abstract class Kohana_Registry
     }
 
     /**
+     * Gets a stored parameter
+     *
+     * @param string $key parameter name
+     *
+     * @return mixed
+     */
+    public function get_config($key)
+    {
+        return Arr::get($this->_config_registry, $key, NULL);
+    }
+
+    /**
+     * Sets a parameter
+     *
+     * @param string $key   parameter name
+     * @param mixed  $value parameter value
+     *
+     * @return mixed
+     */
+    public function set_config($key, $value)
+    {
+        return $this->_config_registry[$key] = $value;
+    }
+
+    /**
+     * Dump parameters
+     *
+     * @return mixed
+     */
+    public function config_to_array()
+    {
+        return $this->_config_registry;
+    }
+
+    /**
+     * Test if an object exists in registry
+     *
+     * @param  string $id Id of the object
+     * @return mixed
+     */
+    public function object_exists($id)
+    {
+        return array_key_exists($id, $this->_instances);
+    }
+
+    /**
      * Instanciate and return an object from the Registry
      *
-     * @param string $id Id of the object to instanciate
+     * @param string $id Id of the object
      *
      * @return object Instance of the requested object
      */
-    public function get($id)
+    public function get_object($id)
     {
         $item_config = Arr::get($this->_config, $id, NULL);
 
         if ($item_config === NULL)
         {
-            throw new Kohana_Exception('id [' . $id . '] not found in kohana-registry configuration');
+            throw new Kohana_Exception('object id [' . $id . '] not found in kohana-registry configuration');
+        }
+
+        if (Arr::get($this->_instances, $id, FALSE) === FALSE && Arr::get($item_config, 'must_be_set') === TRUE)
+        {
+            throw new Kohana_Exception('id [' . $id . '] must be manually set, cannot be auto instanciated');
         }
         else
         {
@@ -177,18 +229,20 @@ abstract class Kohana_Registry
             return $instance;
         }
     }
-
     /**
-     * Set an object instance (or singleton) in the registry. Useful but it should be used only if it is not possible
-     * to do it using the conf file. Note an empty entry with lazy true TRUE is required fot the $id.
+     * Set an object from the Registry
      *
-     * @param string $id       Id of the object in the registry
-     * @param object $instance Instance of an object that is "hard" register in the conf file
+     * @param string $id     Id of the object to store
+     * @param mixed  $object Object to store
      *
-     * @return void
+     * @return object Instance of the requested object
      */
-    public function set($id, $instance)
+    public function set_object($id, $object)
     {
-        $this->_instances[$id] = $instance;
+        if(!empty($id))
+        {
+            $this->_instances[$id] = $object;
+        }
     }
+
 } // End Registry
