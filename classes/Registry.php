@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Kohana Registry, simple Dependency Injection
+ * Registry, provides a Dependency Injection container
  *
  * http://martinfowler.com/articles/injection.html
  * http://www.grobmeier.de/dependency-injection-a-design-pattern-16042009.html
@@ -27,4 +27,6 @@
  * @license   http://creativecommons.org/licenses/by/3.0/ CC BY 3.0
  * @link      http://github.com/gimpe/kohana-registry
  */
-class Registry extends Kohana_Registry {}
+class Registry extends Kohana_Registry
+{
+}
