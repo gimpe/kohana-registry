@@ -1,5 +1,5 @@
 {
-    "name": "gimpe/kohana-registry",
+    "name": "kohana-registry",
     "version": "3.3",
     "type": "kohana-module",
     "description": "Kohana 3.3 module to do Dependency Injection.",
