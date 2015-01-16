@@ -1,7 +1,7 @@
 kohana-registry
 ===============
 
-Kohana 3.3 module to do Dependency Injection .
+Kohana 3.3 module to do Dependency Injection.
 
 
 License:
