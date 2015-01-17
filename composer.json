@@ -1,0 +1,28 @@
+{
+    "name": "gimpe/kohana-registry",
+    "version": "3.2",
+    "type": "kohana-module",
+    "description": "Kohana 3.2 module to do Dependency Injection.",
+    "authors": [
+        {
+            "name": "gimpe",
+            "homepage": "https://github.com/gimpe/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "classmap": [
+            "classes/"
+        ]
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/kohana/modules/{$name}/": [
+                "type:kohana-module"
+            ]
+        }
+    }
+}
